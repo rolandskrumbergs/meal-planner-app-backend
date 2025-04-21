@@ -1,6 +1,8 @@
 ﻿using MealPlanner.Domain.Interfaces;
 using MealPlanner.Infrastructure.Data;
 using MealPlanner.Infrastructure.Data.Interceptors;
+using MealPlanner.Infrastructure.Events;
+using MealPlanner.Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +27,9 @@ public static class Setup
 
         services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
         services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
+
+        services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
+        services.AddSingleton<IUserContext, UserContext>();
 
         return services;
     }

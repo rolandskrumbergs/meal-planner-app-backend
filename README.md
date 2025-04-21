@@ -1,14 +1,10 @@
-# Project template
-
-- .NET 9
-- Uses Clean Archictecture
-- EF Core used for data manipulation, Dapper for read operations
-- EditorConfig setup
-- Code analysis in solution level
-- SonarLint setup
-- 
+# Features
+- Add/list/update/remove receipe to personal collection
+- Create a new plan for next week (takes all recipes from the collection and randomizes them)
 
 ### TO DO:
 
 - Setup test containers integration tests
 - OTEL setup
+- Make IUserContext a scoped service
+- Test out channels for event bus
