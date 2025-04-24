@@ -8,3 +8,4 @@
 - OTEL setup
 - Make IUserContext a scoped service
 - Test out channels for event bus
+- Test out archictecture tests

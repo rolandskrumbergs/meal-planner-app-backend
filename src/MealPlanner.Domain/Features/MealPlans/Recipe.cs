@@ -4,7 +4,7 @@ using MealPlanner.Domain.Interfaces;
 namespace MealPlanner.Domain.Features.MealPlans;
 public class Recipe : DomainEntity<Guid>, IAggregateRoot
 {
-    public string Title { get; private set; }
+    public string Title { get; private set; } = default!;
 
     public string? Description { get; private set; }
 
@@ -12,9 +12,15 @@ public class Recipe : DomainEntity<Guid>, IAggregateRoot
 
     public int TimeToPrepareInMinutes { get; private set; }
 
-    public IEnumerable<MealTime> MealTimes { get; private set; }
+    public bool ForBreakfast { get; private set; }
 
-    public IEnumerable<Ingredient> Ingredients { get; private set; }
+    public bool ForLunch { get; private set; }
+
+    public bool ForDinner { get; private set; }
+
+    public bool ForSnack { get; private set; }
+
+    public ICollection<RecipeIngredient> Ingredients { get; private set; } = [];
 
     protected Recipe()
     {
@@ -26,15 +32,21 @@ public class Recipe : DomainEntity<Guid>, IAggregateRoot
         string? description,
         RecipeDifficulty difficulty,
         int timeToPrepareInMinutes,
-        IEnumerable<MealTime> mealTimes,
-        IEnumerable<Ingredient> ingredients)
+        bool forBreakfast,
+        bool forLunch,
+        bool forDinner,
+        bool forSnack,
+        ICollection<RecipeIngredient> ingredients)
     {
         Id = id;
         Title = title;
         Description = description;
         Difficulty = difficulty;
         TimeToPrepareInMinutes = timeToPrepareInMinutes;
-        MealTimes = mealTimes;
+        ForBreakfast = forBreakfast;
+        ForLunch = forLunch;
+        ForDinner = forDinner;
+        ForSnack = forSnack;
         Ingredients = ingredients;
     }
 }
