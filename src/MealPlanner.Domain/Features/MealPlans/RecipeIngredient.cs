@@ -26,4 +26,14 @@ public class RecipeIngredient : DomainEntity<Guid>
         Quantity = quantity;
         Unit = unit;
     }
+
+    public RecipeIngredient(
+        Guid ingredientId,
+        int quantity,
+        Guid unitId)
+    {
+        IngredientId = ingredientId;
+        Quantity = quantity;
+        UnitId = unitId;
+    }
 }

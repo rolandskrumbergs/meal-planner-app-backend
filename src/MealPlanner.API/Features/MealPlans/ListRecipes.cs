@@ -1,28 +1,21 @@
 ﻿using MealPlanner.Core.Features.MealPlans.UseCases.ListRecipes;
+using MealPlanner.Core.Infrastructure;
+using MealPlanner.Core.Infrastructure.Mediator;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MealPlanner.API.Features.MealPlans;
+
 [Route("api/[controller]")]
 [ApiController]
-internal partial class ListRecipes : ControllerBase
+internal sealed class ListRecipes(IRequestHandler<ListRecipesQuery, Result<IEnumerable<ListRecipeViewModel>>> handler) : ControllerBase
 {
-    private readonly ListRecipesQueryHandler _handler;
+    private readonly IRequestHandler<ListRecipesQuery, Result<IEnumerable<ListRecipeViewModel>>> _handler = handler;
 
-    public ListRecipes(ListRecipesQueryHandler handler)
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<ListRecipeViewModel>>> List([FromBody] ListRecipesQuery request, CancellationToken cancellationToken)
     {
-        _handler = handler;
-    }
+        var result = await _handler.Handle(request, cancellationToken);
 
-    public async Task<ActionResult<ListRecipesResponse>> List([FromBody] ListRecipesRequest request, CancellationToken cancellationToken)
-    {
-        var query = new ListRecipesQuery();
-
-        await _handler.Handle(query, cancellationToken);
-
-        return new ListRecipesResponse();
+        return result.ToActionResult();
     }
 }
-
-internal record ListRecipesRequest();
-
-internal record ListRecipesResponse();

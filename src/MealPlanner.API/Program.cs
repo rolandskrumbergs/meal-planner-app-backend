@@ -1,16 +1,22 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
-
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// Set up Azure AD B2C authentication
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(options =>
+    {
+        builder.Configuration.Bind("AzureAdB2C", options);
+
+        options.TokenValidationParameters.NameClaimType = "name";
+    },
+    options => { builder.Configuration.Bind("AzureAdB2C", options); });
 
 var app = builder.Build();
 
@@ -20,8 +26,13 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+// Disable HTTPS redirection in development mode
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

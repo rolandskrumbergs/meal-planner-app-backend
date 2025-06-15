@@ -1,4 +1,4 @@
 ﻿namespace MealPlanner.Domain.Features.MealPlans;
-public class MealPlan
+public sealed class MealPlan
 {
 }

@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using MealPlanner.Domain.Abstract;
+using MealPlanner.Domain.Features.MealPlans;
 using MealPlanner.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,8 @@ public class AppDbContext(
     IDomainEventDispatcher? dispatcher) : DbContext(options)
 {
     private readonly IDomainEventDispatcher? _dispatcher = dispatcher;
+
+    public DbSet<Recipe> Recipes => Set<Recipe>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

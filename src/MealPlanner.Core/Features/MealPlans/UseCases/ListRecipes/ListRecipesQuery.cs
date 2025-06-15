@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MealPlanner.Core.Infrastructure;
+using MealPlanner.Core.Infrastructure.Mediator;
 
 namespace MealPlanner.Core.Features.MealPlans.UseCases.ListRecipes;
-public sealed class ListRecipesQuery
+public sealed class ListRecipesQuery : IRequest<Result<IEnumerable<ListRecipeViewModel>>>
 {
 }

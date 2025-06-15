@@ -4,30 +4,29 @@ using MealPlanner.Domain.Interfaces;
 namespace MealPlanner.Domain.Features.MealPlans;
 public class Recipe : DomainEntity<Guid>, IAggregateRoot
 {
-    public string Title { get; private set; } = default!;
+    public string Title { get; protected set; } = default!;
 
-    public string? Description { get; private set; }
+    public string? Description { get; protected set; }
 
-    public RecipeDifficulty Difficulty { get; private set; }
+    public RecipeDifficulty Difficulty { get; protected set; }
 
-    public int TimeToPrepareInMinutes { get; private set; }
+    public int TimeToPrepareInMinutes { get; protected set; }
 
-    public bool ForBreakfast { get; private set; }
+    public bool ForBreakfast { get; protected set; }
 
-    public bool ForLunch { get; private set; }
+    public bool ForLunch { get; protected set; }
 
-    public bool ForDinner { get; private set; }
+    public bool ForDinner { get; protected set; }
 
-    public bool ForSnack { get; private set; }
+    public bool ForSnack { get; protected set; }
 
-    public ICollection<RecipeIngredient> Ingredients { get; private set; } = [];
+    public ICollection<RecipeIngredient> Ingredients { get; protected set; } = [];
 
     protected Recipe()
     {
     }
 
     public Recipe(
-        Guid id,
         string title,
         string? description,
         RecipeDifficulty difficulty,
@@ -38,7 +37,6 @@ public class Recipe : DomainEntity<Guid>, IAggregateRoot
         bool forSnack,
         ICollection<RecipeIngredient> ingredients)
     {
-        Id = id;
         Title = title;
         Description = description;
         Difficulty = difficulty;
