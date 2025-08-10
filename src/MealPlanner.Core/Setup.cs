@@ -3,7 +3,7 @@
 namespace MealPlanner.Core;
 public static class Setup
 {
-    public static IServiceCollection AddCore(this IServiceCollection services)
+    public static IServiceCollection AddCoreServices(this IServiceCollection services)
     {
         return services;
     }
